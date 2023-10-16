@@ -1,110 +1,16 @@
 class TaskList extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = `
-        <style>
-        * {
-        color: white;
-        margin: 0;
-        box-sizing: border-box;
-      }
-      body {
-        background-color: rgb(23, 161, 161);
-      }
-      input {
-        color: rgb(51, 50, 50);
-      }
-      h1 {
-        margin-top: 20px;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      #add {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-left: 20px;
-        gap: 10px;
-        font-size: 1.3rem;
-      }
-      label {
-        font-size: 1.5rem;
-      }
-      #add-task {
-        background-color: rgb(51, 50, 50);
-        padding: 5px 15px;
-        border-radius: 15px;
-        font-size: 1.2rem;
-        text-align: center;
-        border: 0;
-        color: white;
-      }
-      #button-end {
-        position: fixed;
-        z-index: 99;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-      }
-      button {
-        background-color: rgb(51, 50, 50);
-      }
-      #button-end > button {
-        width: 100%;
-        height: 80px;
-        font-size: 1.5rem;
-        border: none;
-        outline: none;
-      }
-
-      .case {
-        height: 25px;
-        width: 25px;
-      }
-      .task {
-        height: 80px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 1.5rem;
-        text-decoration: none;
-        gap: 20px;
-      }
-      #task-list{
-        padding-inline: 7vw; 
-      }
-      .theTask{
-        display: flex;
-        gap: 5px;
-      }
-      .buttons{
-        display: flex;
-        gap: 15px;
-      }
-      .buttons button{
-        width: fit-content;
-        padding: 8px 15px;
-        border-radius: 5px
-      }
-      .task-input{
-        width: 100%;
-      }
-      .case:checked + label {
-        text-decoration: line-through;
-      }
-        </style>
-        <div id="task-list"></div>
-      `;
   }
 
   connectedCallback() {
-    const taskList = this.shadowRoot.getElementById("task-list");
+    const taskList = document.getElementById("task-list");
     const taskInput = document.getElementById("task");
     const addTaskButton = document.getElementById("add-task");
     const clearCompletedButton = document.getElementById("button-end");
 
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    console.log(tasks);
 
     function renderTasks() {
       taskList.innerHTML = "";
@@ -119,6 +25,12 @@ class TaskList extends HTMLElement {
         checkbox.name = "checkbox";
         checkbox.className = "case";
         checkbox.id = task.name;
+        if (task.completed) {
+          checkbox.ariaLabel = task.name + ", la tâche est terminé";
+        } else {
+          checkbox.ariaLabel = task.name + ", la tâche n'est pas terminé";
+        }
+
         checkbox.checked = task.completed;
         checkbox.addEventListener("change", () => {
           task.completed = checkbox.checked;

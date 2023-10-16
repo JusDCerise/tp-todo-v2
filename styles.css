@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: rgb(51, 50, 50);
+  background-color: rgb(51, 50, 50);
 }
 input {
   color: rgb(51, 50, 50);
@@ -40,18 +40,20 @@ label {
   bottom: 0;
   left: 0;
   width: 100vw;
+  display: flex;
+  justify-content: center;
 }
 button {
-  background-color: rgb(51, 50, 50);
+  background-color: white;
+  color: rgb(51, 50, 50);
 }
 #button-end > button {
-    width: 100%;
-    height: 80px;
-    font-size: 1.5rem;
-    border: none;
-    outline: none;
-    background-color: aliceblue;
-    color: rgb(51, 50, 50);
+  width: 100%;
+  height: 80px;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  transition: 0.2s;
 }
 
 .case {
@@ -61,12 +63,36 @@ button {
 .task {
   height: 80px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   font-size: 1.5rem;
   text-decoration: none;
+  gap: 20px;
 }
-
-.task input.case:checked + .task-label {
+#task-list {
+  padding-inline: 7vw;
+}
+.theTask {
+  display: flex;
+  gap: 5px;
+}
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+.buttons button {
+  width: fit-content;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+.task-input {
+  width: 100%;
+}
+.case:checked + label {
   text-decoration: line-through;
+}
+#button-end > button:focus {
+  width: 90%;
+  transform: translateY(-10px);
+  box-shadow: inset 0em 0em 15px rgb(51, 50, 50);
 }
